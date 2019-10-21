@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 
-const APOD_API_KEY = 'u2mXrcwg0yhwBpJwETyDZQrxTZgOBLMFvYxVW07R'
-
+const apodBaseUrl = 'https://api.nasa.gov/planetary/apod'
 
 const APODMedia = (props) => {
   if (props.type === 'video') {
@@ -23,7 +22,6 @@ const APODMedia = (props) => {
   }
 }
 
-
 class APOD extends Component {
 
   constructor(props) {
@@ -37,10 +35,9 @@ class APOD extends Component {
     }
   
   componentDidMount() {
-    const url = `https://api.nasa.gov/planetary/apod?api_key=${APOD_API_KEY}`
+    const url = `${apodBaseUrl}?api_key=${process.env.REACT_APP_APOD_API_KEY}`
     axios.get(url).then(response => response.data)
     .then((data) => {
-      console.log(data)
       this.setState({
         title: data.title,
         description: data.explanation,
@@ -48,7 +45,6 @@ class APOD extends Component {
         type: data.media_type
       })
      })
-     
   }
 
   render() {

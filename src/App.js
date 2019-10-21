@@ -3,6 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import APOD from './Components/APOD';
+import Cat from './Components/Cat';
 import Chuck from './Components/Chuck';
 import Coworking from './Components/Coworking';
 import Weather from './Components/Weather';
@@ -51,6 +52,7 @@ class App extends React.Component {
           </Col>
           <Col>
             <h1>{this.state.date.toLocaleTimeString()}</h1>
+            <Cat />
             <Chuck />
             <Coworking />
             <Weather />

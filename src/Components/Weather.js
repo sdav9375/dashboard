@@ -2,8 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import Card from "react-bootstrap/Card";
 
-const API_KEY = "9ebf2d221b3ba304433ddd575dd51dd9"
-const API_URL = "http://api.openweathermap.org/data/2.5/weather"
+const weatherBaseUrl = 'http://api.openweathermap.org/data/2.5/weather'
 
 class Weather extends Component {
   constructor(props) {
@@ -15,7 +14,7 @@ class Weather extends Component {
   }
   
   componentDidMount() {
-    const url = `${API_URL}?q=Miami&units=imperial&appid=${API_KEY}`
+    const url = `${weatherBaseUrl}?q=Miami&units=imperial&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
     axios.get(url).then(response => response.data)
     .then((data) => {
       this.setState({
