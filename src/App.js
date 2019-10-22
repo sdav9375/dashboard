@@ -6,6 +6,7 @@ import APOD from './Components/APOD';
 import Cat from './Components/Cat';
 import Chuck from './Components/Chuck';
 import Coworking from './Components/Coworking';
+import NewsContainer from './Components/NewsContainer';
 import Weather from './Components/Weather';
 
 class App extends React.Component {
@@ -47,15 +48,19 @@ class App extends React.Component {
     return (
       <Container>
         <Row>
-          <Col className="border-right">
+          <Col>
             <h1 className="">Good {this.timeOfDay(this.state.date)}</h1>
+            <h1>{this.state.date.toLocaleTimeString()}</h1>
+            <Weather />
+          </Col>
+          <Col className="border-right">
+            <NewsContainer category="science" />
+            <NewsContainer category="technology" />
           </Col>
           <Col>
-            <h1>{this.state.date.toLocaleTimeString()}</h1>
             <Cat />
             <Chuck />
             <Coworking />
-            <Weather />
             <APOD />
           </Col>
         </Row>
