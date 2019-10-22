@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Log from './Log';
 
 const catBaseUrl = 'https://api.thecatapi.com/v1/images/search?order=RANDOM'
 
@@ -30,8 +31,12 @@ class Cat extends Component {
   }
 
   render() {
+    const stopTime = Date.now()
     return (
       <Card>
+        <Card.Header>
+          <Log startTime={this.props.startTime} stopTime={stopTime} />
+        </Card.Header>
         <Card.Img variant="top" src={this.state.url} />
         <Card.Body>
           <Button onClick={this.getCat}>Random cat</Button>

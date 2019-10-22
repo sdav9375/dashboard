@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
+import Log from './Log';
 
 const apodBaseUrl = 'https://api.nasa.gov/planetary/apod'
 
@@ -48,8 +49,10 @@ class APOD extends Component {
   }
 
   render() {
+    const stopTime = Date.now()
     return (
       <Card>
+        <Card.Header><Log startTime={this.props.startTime} stopTime={stopTime}/></Card.Header>
         <APODMedia {...this.state} />
         <Card.Body>
           <Card.Title>{this.state.title}</Card.Title>

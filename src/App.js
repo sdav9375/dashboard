@@ -5,30 +5,18 @@ import Row from 'react-bootstrap/Row';
 import APOD from './Components/APOD';
 import Cat from './Components/Cat';
 import Chuck from './Components/Chuck';
+import Clock from './Components/Clock';
 import Coworking from './Components/Coworking';
 import NewsContainer from './Components/NewsContainer';
 import Weather from './Components/Weather';
 
+
+const startTime = Date.now()
+
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      date: new Date()
-    }
-  }
-
-  componentDidMount() {
-    this.timerID = setInterval(() => this.tick(), 1000)
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID)
-  }
-
-  tick = () => {
-    this.setState({
-      date: new Date()
-    })
+    console.log('startTime', startTime)
   }
 
   timeOfDay = (time) => {
@@ -49,19 +37,18 @@ class App extends React.Component {
       <Container>
         <Row>
           <Col>
-            <h1 className="">Good {this.timeOfDay(this.state.date)}</h1>
-            <h1>{this.state.date.toLocaleTimeString()}</h1>
-            <Weather />
+            <Clock />
+            <Weather startTime={startTime} />
+            <APOD startTime={startTime} />
           </Col>
           <Col className="border-right">
-            <NewsContainer category="science" />
-            <NewsContainer category="technology" />
+            <NewsContainer category="science" startTime={startTime} />
+            <NewsContainer category="technology" startTime={startTime} />
           </Col>
           <Col>
-            <Cat />
-            <Chuck />
-            <Coworking />
-            <APOD />
+            <Cat startTime={startTime} />
+            <Chuck startTime={startTime} />
+            <Coworking startTime={startTime} />
           </Col>
         </Row>
       </Container>

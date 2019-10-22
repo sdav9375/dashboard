@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Log from './Log';
 
 const removeSource = (title) => {
   const n = title.lastIndexOf(' - ')
@@ -8,9 +9,15 @@ const removeSource = (title) => {
 }
 
 function NewsWidget(props) {
+  const stopTime = Date.now()
   return (
     <Card>
-      <Card.Header >{props.category} News</Card.Header>
+      <Card.Header>
+        <React.Fragment>
+          <h3>{props.category} News </h3>
+          <Log startTime={props.startTime} stopTime={stopTime} />
+        </React.Fragment>
+      </Card.Header>
       <Card.Body style={cardStyles}>
         <ListGroup variant="flush">
           {props.articles &&

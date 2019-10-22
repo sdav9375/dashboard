@@ -28,7 +28,7 @@ class NewsContainer extends Component {
   render() {
     const categoryName = this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1)
     return (
-      <NewsWidget {...this.state} category={categoryName} />
+      <NewsWidget {...this.state} category={categoryName} startTime={this.props.startTime}/>
     )
   }
 }
