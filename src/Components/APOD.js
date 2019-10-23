@@ -24,7 +24,6 @@ const APODMedia = (props) => {
 }
 
 const APOD = (props) => {
-
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [url, setUrl] = useState('')
@@ -35,23 +34,22 @@ const APOD = (props) => {
   const stopTime = Date.now()
 
   useEffect(() => {
-    axios.get(apiUrl).then(response => response.data)
-    .then((data) => {
-      setTitle(data.title)
-      setDescription(data.explanation)
-      setUrl(data.url)
-      setType(data.media_type)
-      console.log(data)
-    })}, [apiUrl]
-  )
-
-  useEffect(() => {
-    localStorage.setItem('title in storage', title)
-  })
+    axios
+      .get(apiUrl)
+      .then(response => response.data)
+      .then((data) => {
+        setTitle(data.title)
+        setDescription(data.explanation)
+        setUrl(data.url)
+        setType(data.media_type)
+      })
+  }, [apiUrl])
 
   return (
     <Card>
-      <Card.Header><Log startTime={props.startTime} stopTime={stopTime}/></Card.Header>
+      <Card.Header>
+        <Log startTime={props.startTime} stopTime={stopTime}/>
+      </Card.Header>
       <APODMedia 
         title={title} 
         description={description}

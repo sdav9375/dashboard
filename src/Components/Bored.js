@@ -4,26 +4,23 @@ import Button from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"
 import Log from "./Log"
  
+const url = 'http://www.boredapi.com/api/activity/'
+
 const Bored = (props) => {
   const [activity, setActivity] = useState('')
-
-  const url = "http://www.boredapi.com/api/activity/"
 
   const stopTime = Date.now()
 
   useEffect(() => {
-      axios.get(url)
-      .then(response => {
-        setActivity(response.data.activity)}
-      )
+    getActivity()
   }, [])
 
   const getActivity = () => {
-    console.log('clicked getActivity')
-    axios.get(url)
+    axios
+      .get(url)
       .then(response => {
-        setActivity(response.data.activity)}
-      )
+        setActivity(response.data.activity)
+      })
   }
 
   return (

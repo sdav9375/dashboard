@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 class Haulover extends Component {
   render() {
     return (
-      <div class="wf-width-cont surf-fc-widget"><div class="widget-container"><div class="external-cont"><iframe class="surf-fc-i" allowtransparency="true" src="//www.surf-forecast.com/breaks/Haulover/forecasts/widget/a" scrolling="no" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+      <div class="wf-width-cont surf-fc-widget"><div class="widget-container"><div class="external-cont">
+      <iframe class="surf-fc-i" allowtransparency="true" src="//www.surf-forecast.com/breaks/Haulover/forecasts/widget/a" scrolling="no" frameborder="0" marginwidth="0" marginheight="0">
+      </iframe>
       
      </div></div></div>
     );
