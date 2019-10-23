@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Log from './Log';
 
@@ -23,47 +23,49 @@ const APODMedia = (props) => {
   }
 }
 
-class APOD extends Component {
+const APOD = (props) => {
 
-  constructor(props) {
-      super(props);
-      this.state = {
-        title: '',
-        description: '',
-        url: '',
-        type: ''
-      }
-    }
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [url, setUrl] = useState('')
+  const [type, setType] = useState('')
   
-  componentDidMount() {
-    const url = `${apodBaseUrl}?api_key=${process.env.REACT_APP_APOD_API_KEY}`
-    axios.get(url).then(response => response.data)
-    .then((data) => {
-      this.setState({
-        title: data.title,
-        description: data.explanation,
-        url: data.url,
-        type: data.media_type
-      })
-     })
-  }
+  const apiUrl = `${apodBaseUrl}?api_key=${process.env.REACT_APP_APOD_API_KEY}`
 
-  render() {
-    const stopTime = Date.now()
-    return (
-      <Card>
-        <Card.Header><Log startTime={this.props.startTime} stopTime={stopTime}/></Card.Header>
-        <APODMedia {...this.state} />
-        <Card.Body>
-          <Card.Title>{this.state.title}</Card.Title>
-          <Card.Subtitle>NASA Astronomical Pic of the Day</Card.Subtitle>
-          <Card.Text>
-          {this.state.description}
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    )
-  }
+  const stopTime = Date.now()
+
+  useEffect(() => {
+    axios.get(apiUrl).then(response => response.data)
+    .then((data) => {
+      setTitle(data.title)
+      setDescription(data.explanation)
+      setUrl(data.url)
+      setType(data.media_type)
+      console.log(data)
+    })}, [apiUrl]
+  )
+
+  useEffect(() => {
+    localStorage.setItem('title in storage', title)
+  })
+
+  return (
+    <Card>
+      <Card.Header><Log startTime={props.startTime} stopTime={stopTime}/></Card.Header>
+      <APODMedia 
+        title={title} 
+        description={description}
+        url={url}
+        type={type} />
+      <Card.Body>
+        <Card.Title>{title}</Card.Title>
+        <Card.Subtitle>NASA Astronomical Pic of the Day</Card.Subtitle>
+        <Card.Text>
+          {description}
+        </Card.Text>
+      </Card.Body>
+    </Card>
+  )
 }
 
 export default APOD;
