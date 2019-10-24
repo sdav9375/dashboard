@@ -9,8 +9,7 @@ const url = "https://quote-garden.herokuapp.com/quotes/random"
 const Quote = (props) => {
   const [quote, setQuote] = useState('')
   const [author, setAuthor] = useState('')
-
-  const stopTime = Date.now()
+  const [stopTime, setStopTime] = useState(0)
 
   useEffect(() => {
     getQuote()
@@ -26,10 +25,14 @@ const Quote = (props) => {
       })
   }
 
+  useEffect(() => {
+    setStopTime(window.performance.now())
+  }, [])
+
   return (
     <Card>
       <Card.Header>
-        <Log startTime={props.startTime} stopTime={stopTime} />
+        <Log startTime={props.startTime} stopTime={stopTime} widget='quote' />
       </Card.Header>
       <Card.Body>
         <Card.Title>Random Quote</Card.Title>

@@ -1,48 +1,46 @@
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from "react-bootstrap/Card";
+import Log from './Log';
 
 const weatherBaseUrl = 'http://api.openweathermap.org/data/2.5/weather'
+const url = `${weatherBaseUrl}?q=Miami&units=imperial&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
 
-class Weather extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      temp: '',
-      weather: []
-    }
-  }
-  
-  componentDidMount() {
-    const url = `${weatherBaseUrl}?q=Miami&units=imperial&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
-    axios.get(url).then(response => response.data)
+const Weather = (props) => {
+  const [temp, setTemp] = useState('')
+  const [weather, setWeather] = useState([]);
+  const [stopTime, setStopTime] = useState(0)
+
+  useEffect(() => {
+    getWeather()
+    setStopTime(window.performance.now())
+  }, []);
+
+  const getWeather = () => {
+     axios.get(url).then(response => response.data)
     .then((data) => {
-      this.setState({
-        temp: JSON.stringify(data.main.temp),
-        weather: data.weather.map(item => item.description)
-      })
+      setTemp(JSON.stringify(data.main.temp))
+      setWeather(data.weather.map(item => item.description))
      })
   }
 
-  render() {
-    return (
-      <div>
-        <Card>
-          <Card.Body>
-            <Card.Title>Miami temperature: {this.state.temp} F</Card.Title>
-            <Card.Text>Weather conditions</Card.Text>
-            <ul>
-              {this.state.weather &&
-                this.state.weather.map((desc, index) => (
-                  <li key={index + desc}>{desc}</li>
-                ))}
-            </ul>
-          </Card.Body>
-        </Card>
-      </div>
-    )
-  }
+  return (
+    <Card>
+      <Card.Header>
+        <Log startTime={props.startTime} stopTime={stopTime} widget='weather'/>
+      </Card.Header>
+      <Card.Body>
+        <Card.Title>Miami temperature: {temp} F</Card.Title>
+        <Card.Text>Weather conditions</Card.Text>
+        <ul>
+          {weather &&
+            weather.map((desc, index) => <li key={index + desc}>{desc}</li>)}
+        </ul>
+      </Card.Body>
+    </Card>
+  )
 }
 
-export default Weather;
+export default Weather
+
 

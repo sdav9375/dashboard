@@ -8,8 +8,7 @@ const url = 'https://api.chucknorris.io/jokes/random'
 
 const Chuck =(props) => {
   const [joke, setJoke] = useState('')
-
-  const stopTime = Date.now()
+  const [stopTime, setStopTime] = useState(0)
 
   useEffect(() => {
     getJoke()
@@ -24,10 +23,14 @@ const Chuck =(props) => {
       })
   }
 
+  useEffect(() => {
+    setStopTime(window.performance.now())
+  }, []);
+
   return (
     <Card>
       <Card.Header>
-        <Log startTime={props.startTime} stopTime={stopTime} />
+        <Log startTime={props.startTime} stopTime={stopTime} widget='chuck'/>
       </Card.Header>
       <Card.Body>
         <Card.Title>Chuck Norris facts</Card.Title>

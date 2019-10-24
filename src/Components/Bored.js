@@ -8,8 +8,7 @@ const url = 'http://www.boredapi.com/api/activity/'
 
 const Bored = (props) => {
   const [activity, setActivity] = useState('')
-
-  const stopTime = Date.now()
+  const [stopTime, setStopTime] = useState(0)
 
   useEffect(() => {
     getActivity()
@@ -23,10 +22,14 @@ const Bored = (props) => {
       })
   }
 
+  useEffect(() => {
+    setStopTime(window.performance.now())
+  }, [])
+
   return (
     <Card>
       <Card.Header>
-        <Log startTime={props.startTime} stopTime={stopTime} />
+        <Log startTime={props.startTime} stopTime={stopTime} widget='bored' />
       </Card.Header>
       <Card.Body>
         <Card.Title>What should I do today?</Card.Title>

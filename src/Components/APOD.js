@@ -28,10 +28,9 @@ const APOD = (props) => {
   const [description, setDescription] = useState('')
   const [url, setUrl] = useState('')
   const [type, setType] = useState('')
+  const [stopTime, setStopTime] = useState(0)
   
   const apiUrl = `${apodBaseUrl}?api_key=${process.env.REACT_APP_APOD_API_KEY}`
-
-  const stopTime = Date.now()
 
   useEffect(() => {
     axios
@@ -45,10 +44,14 @@ const APOD = (props) => {
       })
   }, [apiUrl])
 
+  useEffect(() => {
+    setStopTime(window.performance.now())
+  }, [])
+
   return (
     <Card>
       <Card.Header>
-        <Log startTime={props.startTime} stopTime={stopTime}/>
+        <Log startTime={props.startTime} stopTime={stopTime} widget='APOD'/>
       </Card.Header>
       <APODMedia 
         title={title} 

@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import NewsWidget from './NewsWidget';
 
-
 class NewsContainer extends Component {
   constructor(props) {
     super(props);
@@ -21,11 +20,11 @@ class NewsContainer extends Component {
         this.setState({
           articles: data
         })
-        console.log(data)
       })
   }
 
   render() {
+    console.log('--------------------NEWS CONTAINER---------------------')
     const categoryName = this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1)
     return (
       <NewsWidget {...this.state} category={categoryName} startTime={this.props.startTime}/>

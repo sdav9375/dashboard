@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Log from './Log';
@@ -8,14 +8,19 @@ const removeSource = (title) => {
   return title.substr(0, n)
 }
 
-function NewsWidget(props) {
-  const stopTime = Date.now()
+const NewsWidget = (props) => {
+  const [stopTime, setStopTime] = useState(0)
+
+  useEffect(() => {
+    setStopTime(window.performance.now())
+  }, [])
+
   return (
     <Card>
       <Card.Header>
         <React.Fragment>
           <h3>{props.category} News </h3>
-          <Log startTime={props.startTime} stopTime={stopTime} />
+          <Log startTime={props.startTime} stopTime={stopTime} widget={`news widget ${props.category}`} />
         </React.Fragment>
       </Card.Header>
       <Card.Body style={cardStyles}>

@@ -8,11 +8,10 @@ const catBaseUrl = 'https://api.thecatapi.com/v1/images/search?order=RANDOM'
 
 const Cat = (props) => {
   const [image, setImage] = useState('')
+  const [stopTime, setStopTime] = useState(0)
   
   const url = `${catBaseUrl}&x-api-key=${process.env.REACT_APP_CAT_API_KEY}`
 
-  const stopTime = Date.now()
-  
   useEffect(() => {
     getCat()
   }, [])
@@ -26,10 +25,14 @@ const Cat = (props) => {
       })
   }
 
+  useEffect(() => {
+    setStopTime(window.performance.now())
+  }, [])
+
   return (
     <Card>
       <Card.Header>
-        <Log startTime={props.startTime} stopTime={stopTime} />
+        <Log startTime={props.startTime} stopTime={stopTime} widget='cat' />
       </Card.Header>
       <Card.Img variant="top" src={image} />
       <Card.Body>

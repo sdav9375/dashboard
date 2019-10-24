@@ -1,10 +1,10 @@
 import React from 'react';
 
 const Log = (props) => {
-  console.log(props)
+  console.log(`---------------LOG ${props.widget}-------------`)
   return (
-    <span>Render time: {props.stopTime - props.startTime} milliseconds</span>
+    <span>First render: {parseInt(props.stopTime - props.startTime)} milliseconds</span>
   );
   }
 
-export default Log
+export default React.memo(Log)
