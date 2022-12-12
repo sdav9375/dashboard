@@ -16,12 +16,4 @@ app "dashboard-app" {
       client_config = ""
     }
   }
-  release {
-    use "kubernetes" {
-      ingress {
-        //The following field was skipped during file generation
-        tls = ""
-      }
-    }
-  }
 }
