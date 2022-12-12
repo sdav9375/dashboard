@@ -5,15 +5,13 @@ app "dashboard-app" {
     }
     registry {
       use "docker" {
-        image = "sdav9375/dashboard:latest"
+        image = "sdav9375/dashboard"
         tag   = "latest"
       }
     }
   }
   deploy {
     use "docker" {
-      //The following field was skipped during file generation
-      client_config = ""
     }
   }
 }
